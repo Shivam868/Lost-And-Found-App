@@ -4,11 +4,11 @@ import { StatusBar } from 'expo-status-bar';
 import MapView, { Marker } from 'react-native-maps';
 import { useNavigation } from '@react-navigation/native';
 
-const beatsImage = require('/Users/markloyola/Desktop/lostFound/assets/postTest/beats.jpg')
-const calcImage = require('/Users/markloyola/Desktop/lostFound/assets/postTest/calculator.jpg')
-const controllerImage = require('/Users/markloyola/Desktop/lostFound/assets/postTest/controller.jpg')
-const iPhoneImage2 = require('/Users/markloyola/Desktop/lostFound/assets/postTest/iPhone_back.jpg')
-const iPhoneImage1 = require('/Users/markloyola/Desktop/lostFound/assets/postTest/iPhone.jpg')
+const beatsImage = require('../assets/postTest/beats.jpg')
+const calcImage = require('../assets/postTest/calculator.jpg')
+const controllerImage = require('../assets/postTest/controller.jpg')
+const iPhoneImage2 = require('../assets/postTest/iPhone_back.jpg')
+const iPhoneImage1 = require('../assets/postTest/iPhone.jpg')
 
 
 
