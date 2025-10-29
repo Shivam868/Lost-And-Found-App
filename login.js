@@ -1,15 +1,25 @@
 import { Link } from 'expo-router';
+import { useState } from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View
 } from 'react-native';
 
-export default function HomeScreen() {
+export default function LoginScreen() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = () => { 
+    console.log('Email:', email);
+    console.log('Password:', password);
+  };
+
   return (
     <KeyboardAvoidingView 
       style={styles.container}
@@ -17,19 +27,46 @@ export default function HomeScreen() {
     >
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.wrapper}>
-          <Text style={styles.title}>Welcome</Text>
+          <Text style={styles.title}>Login</Text>
+          <View style={styles.form}>
+            <View style={styles.inputContainer}>
+              <View style={styles.label}>
+                <Text style={styles.labelText}>@</Text> 
+              </View>
+              <TextInput
+                style={styles.input}
+                placeholder="Email"
+                value={email}
+                onChangeText={setEmail}
+                keyboardType="email-address"
+                autoCapitalize="none"
+                placeholderTextColor="#666"
+              />
+            </View>
 
-          <Link href="/signup" asChild>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>Sign Up</Text>
+            <View style={styles.inputContainer}>
+              <View style={styles.label}>
+                <Text style={styles.labelText}>#</Text> 
+              </View>
+              <TextInput
+                style={styles.input}
+                placeholder="Password"
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry
+                placeholderTextColor="#666"
+              />
+            </View>
+
+            <TouchableOpacity style={styles.button} onPress={handleLogin}>
+              <Text style={styles.buttonText}>Login</Text> 
             </TouchableOpacity>
-          </Link>
+          </View>
           
-          <Link href="/login" asChild>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>Login</Text>
-            </TouchableOpacity>
-          </Link>
+          <Text style={styles.footerText}>
+            Don't have an account?{' '}
+            <Link href="/signup" style={styles.link}>Sign Up</Link>
+          </Text>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
