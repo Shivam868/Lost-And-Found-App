@@ -4,10 +4,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './Home';
 import HomeSignIn from './HomeSignIn'
-
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { Ionicons } from "@expo/vector-icons";
-import Search from './SearchPage';
+import Search from './Search';
 import BottomTabBar from './BottomTabBar';
 
 const Stack = createNativeStackNavigator();
@@ -26,8 +25,8 @@ export default function App () {
       <Stack.Navigator>
         {/* Set Home as the initial screen and hide its header */}
         <Stack.Screen
-        name="Home"
-          component={Home}
+          name="MainTabs"
+          component={BottomTabBar}
           options={{ headerShown: false }}
         />
         {/* Register the HomeSignIn screen */}
@@ -36,6 +35,7 @@ export default function App () {
           component={HomeSignIn}
           options={{ headerShown: false}} // Remove back button from top left bar (Ex: <Home (shown on top left bar))
         />
+
       </Stack.Navigator>
       
     </NavigationContainer>
@@ -55,3 +55,4 @@ const styles = StyleSheet.create({
     padding: 10,
   },
 });
+
