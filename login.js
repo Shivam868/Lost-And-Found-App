@@ -1,5 +1,4 @@
-import { Link } from 'expo-router';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -10,6 +9,8 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { BottomTabBar } from '@react-navigation/bottom-tabs';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
@@ -19,6 +20,16 @@ export default function LoginScreen() {
     console.log('Email:', email);
     console.log('Password:', password);
   };
+
+  const navigation = useNavigation();
+
+  const handleSignUp = () => {
+    navigation.navigate('SignUpScreen')
+  };
+
+  const BottomTabBar = () => {
+    navigation.navigate('BottomTabBar')
+  }
 
   return (
     <KeyboardAvoidingView 
@@ -58,15 +69,16 @@ export default function LoginScreen() {
               />
             </View>
 
-            <TouchableOpacity style={styles.button} onPress={handleLogin}>
+            <TouchableOpacity style={styles.button} onPress={BottomTabBar}>
               <Text style={styles.buttonText}>Login</Text> 
             </TouchableOpacity>
           </View>
           
-          <Text style={styles.footerText}>
-            Don't have an account?{' '}
-            <Link href="/signup" style={styles.link}>Sign Up</Link>
-          </Text>
+          <TouchableOpacity style = {styles.signupButton} onPress = {handleSignUp}>
+            <Text style={styles.footerText}>
+              Don't have an account?{''}
+            </Text>
+          </TouchableOpacity>  
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -150,6 +162,12 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#333333',
   },
+
+  signupButton: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 5,
+  },
+
   buttonText: {
     fontSize: 16,
     fontWeight: '600',

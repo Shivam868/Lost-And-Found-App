@@ -1,5 +1,4 @@
-import { Link } from 'expo-router';
-import { useState } from 'react';
+import React, { useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -10,15 +9,24 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 
 export default function SignUpScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const navigation = useNavigation();
+
   const handleSignUp = () => {
     console.log('Email:', email);
     console.log('Password:', password);
   };
+
+  // Turn 'Already have an account' to login screen navigation
+  const handleLogin = () => {
+    navigation.navigate('LoginScreen')
+  }
 
   return (
     <KeyboardAvoidingView 
@@ -65,11 +73,12 @@ export default function SignUpScreen() {
               <Text style={styles.buttonText}>Sign Up</Text>
             </TouchableOpacity>
           </View>
-          
-          <Text style={styles.footerText}>
-            Already have an account?{' '}
-            <Link href="/login" style={styles.link}>Login</Link>
-          </Text>
+
+          <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+            <Text style={styles.footerText}>
+              Already have an account?{' '}
+            </Text>
+          </TouchableOpacity>  
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -154,6 +163,12 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#333333',
   },
+
+  loginButton: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 5,
+  },
+
   buttonText: {
     fontSize: 16,
     fontWeight: '600',

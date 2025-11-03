@@ -13,6 +13,8 @@ const Tab = createBottomTabNavigator();
 function BottomTabBar() {
   return (
     <Tab.Navigator
+      
+
       screenOptions={({ route }) => ({
         tabBarIcon: ({ color, size }) => {
           let iconName;
