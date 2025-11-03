@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import { Link } from 'expo-router';
+import { useState } from 'react';
 import {
+  Alert,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -9,27 +11,47 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { BottomTabBar } from '@react-navigation/bottom-tabs';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({
+    email: '',
+    password: ''
+  });
+
+  const validateForm = () => {
+    const newErrors = {
+      email: '',
+      password: ''
+    };
+    let isValid = true;
+
+    if (!email) {
+      newErrors.email = 'Email is required';
+      isValid = false;
+    } else if (!email.includes('@')) {
+      newErrors.email = 'Please use a valid KSU email';
+      isValid = false;
+    }
+
+    if (!password) {
+      newErrors.password = 'Password is required';
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
 
   const handleLogin = () => { 
-    console.log('Email:', email);
-    console.log('Password:', password);
+    if (validateForm()) {
+      console.log('Email:', email);
+      console.log('Password:', password);
+      Alert.alert('Success', 'Logged in successfully!');
+    }
   };
-
-  const navigation = useNavigation();
-
-  const handleSignUp = () => {
-    navigation.navigate('SignUpScreen')
-  };
-
-  const BottomTabBar = () => {
-    navigation.navigate('BottomTabBar')
-  }
+  const isFormComplete = email && password;
 
   return (
     <KeyboardAvoidingView 
@@ -45,49 +67,63 @@ export default function LoginScreen() {
                 <Text style={styles.labelText}>@</Text> 
               </View>
               <TextInput
-                style={styles.input}
-                placeholder="Email"
+                style={[styles.input, errors.email && styles.inputError]}
+                placeholder="KSU Email"
                 value={email}
-                onChangeText={setEmail}
+                onChangeText={(text) => {
+                  setEmail(text);
+                  if (text && errors.email) {
+                    setErrors(prev => ({ ...prev, email: '' }));
+                  }
+                }}
                 keyboardType="email-address"
                 autoCapitalize="none"
-                placeholderTextColor="#666"
+                placeholderTextColor="#999999"
               />
             </View>
+            {errors.email ? <Text style={styles.errorText}>{errors.email}</Text> : null}
 
             <View style={styles.inputContainer}>
               <View style={styles.label}>
                 <Text style={styles.labelText}>#</Text> 
               </View>
               <TextInput
-                style={styles.input}
+                style={[styles.input, errors.password && styles.inputError]}
                 placeholder="Password"
                 value={password}
-                onChangeText={setPassword}
+                onChangeText={(text) => {
+                  setPassword(text);
+                  if (text && errors.password) {
+                    setErrors(prev => ({ ...prev, password: '' }));
+                  }
+                }}
                 secureTextEntry
-                placeholderTextColor="#666"
+                placeholderTextColor="#999999"
               />
             </View>
+            {errors.password ? <Text style={styles.errorText}>{errors.password}</Text> : null}
 
-            <TouchableOpacity style={styles.button} onPress={BottomTabBar}>
-              <Text style={styles.buttonText}>Login</Text> 
+            <TouchableOpacity 
+              style={[
+                styles.button, 
+                !isFormComplete && styles.buttonDisabled
+              ]} 
+              onPress={handleLogin}
+              disabled={!isFormComplete}
+            >
+              <Text style={[
+                styles.buttonText,
+                !isFormComplete && styles.buttonTextDisabled
+              ]}>
+                Login
+              </Text>
             </TouchableOpacity>
           </View>
           
-
-
-
-          <View style = {styles.footerContainer}>
-            <Text style={styles.footerText}>
-              Don't have an account? {''}
-            </Text>
-          <TouchableOpacity style = {styles.signupButton} onPress = {handleSignUp}>
-            <Text style={styles.link}>
-              Sign Up
-            </Text>
-          </TouchableOpacity>  
-          </View>
-  
+          <Text style={styles.footerText}>
+            Don't have an account?{' '}
+            <Link href="/signup" style={styles.link}>Sign Up</Link>
+          </Text>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -98,11 +134,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f0f0f0',
-  },
-  footerContainer: {
-    flexDirection: 'row',
-    marginTop: 20,
-    fontSize: 14,
   },
   scrollContainer: {
     flexGrow: 1,
@@ -144,7 +175,7 @@ const styles = StyleSheet.create({
   },
   label: {
     backgroundColor: '#ffc629',
-    height: 50,
+    height: 57,
     width: 50,
     borderTopLeftRadius: 10,
     borderBottomLeftRadius: 10,
@@ -167,6 +198,10 @@ const styles = StyleSheet.create({
     padding: 15,
     fontSize: 16,
   },
+  inputError: {
+    borderColor: 'red',
+    borderWidth: 1,
+  },
   button: {
     marginTop: 10,
     backgroundColor: '#FFFFFF',
@@ -176,14 +211,10 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#333333',
   },
-
-  signupButton: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 5,
-    color: '#ffc629',
-    fontWeight: '600',
+  buttonDisabled: {
+    backgroundColor: '#f0f0f0',
+    borderColor: '#cccccc',
   },
-
   buttonText: {
     fontSize: 16,
     fontWeight: '600',
@@ -191,16 +222,23 @@ const styles = StyleSheet.create({
     color: '#333333',
     textAlign: 'center',
   },
+  buttonTextDisabled: {
+    color: '#cccccc',
+  },
   footerText: {
     marginTop: 20,
     fontSize: 14,
     color: '#333333',
-    
   },
   link: {
-    marginTop: 20,
-    fontSize: 14,
     color: '#ffc629',
     fontWeight: '600',
+  },
+  errorText: {
+    alignSelf: 'flex-start',
+    color: 'red',
+    fontSize: 12,
+    marginTop: -10,
+    marginLeft: 10,
   },
 });

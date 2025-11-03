@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import { Link } from 'expo-router';
+import { useState } from 'react';
 import {
+  Alert,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -9,24 +11,88 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-
 
 export default function SignUpScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordStrength, setPasswordStrength] = useState('');
+  const [errors, setErrors] = useState({
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
+  const placeholderColor = '#999999';
 
-  const navigation = useNavigation();
+  const validateForm = () => {
+    const newErrors = {
+      email: '',
+      password: '',
+      confirmPassword: ''
+    };
+    let isValid = true;
+
+    if (!email) {
+      newErrors.email = 'Email is required';
+      isValid = false;
+    } else if (!email.endsWith('@ksu.edu')) {
+      newErrors.email = 'Please use a valid KSU email';
+      isValid = false;
+    }
+    if (!password) {
+      newErrors.password = 'Password is required';
+      isValid = false;
+    } else if (password.length < 6) {
+      newErrors.password = 'Password must be at least 6 characters';
+      isValid = false;
+    }
+    if (!confirmPassword) {
+      newErrors.confirmPassword = 'Please confirm your password';
+      isValid = false;
+    } else if (password !== confirmPassword) {
+      newErrors.confirmPassword = 'Passwords do not match';
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
 
   const handleSignUp = () => {
-    console.log('Email:', email);
-    console.log('Password:', password);
+    if (validateForm()) {
+      console.log('Email:', email);
+      console.log('Password:', password);
+      Alert.alert('Success', 'Account created successfully!');
+    }
   };
 
-  // Turn 'Already have an account' to login screen navigation
-  const handleLogin = () => {
-    navigation.navigate('LoginScreen')
+  const evaluatePasswordStrength = (text) => {
+    setPassword(text);
+    if (text.length === 0) {
+      setPasswordStrength('');
+    } else if (text.length < 5) {
+      setPasswordStrength('Weak');
+    } else if (text.length < 8) {
+      setPasswordStrength('Medium');
+    } else {
+      setPasswordStrength('Strong');
+    }
+
+    if (text && errors.password) {
+      setErrors(prev => ({ ...prev, password: '' }));
+    }
   };
+
+  const getStrengthColor = () => {
+    switch (passwordStrength) {
+      case 'Weak': return 'red';
+      case 'Medium': return 'orange';
+      case 'Strong': return 'green';
+      default: return '#333333';
+    }
+  };
+
+  const isFormComplete = email && password && confirmPassword && password === confirmPassword;
 
   return (
     <KeyboardAvoidingView 
@@ -36,71 +102,99 @@ export default function SignUpScreen() {
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.wrapper}>
           <Text style={styles.title}>Sign Up</Text>
-          
-          {/* Signup form */}
+
           <View style={styles.form}>
-            {/* Email input */}
             <View style={styles.inputContainer}>
               <View style={styles.label}>
                 <Text style={styles.labelText}>@</Text>
               </View>
               <TextInput
-                style={styles.input}
-                placeholder="Email"
+                style={[styles.input, errors.email && styles.inputError]}
+                placeholder="KSU Email"
+                placeholderTextColor={placeholderColor}
                 value={email}
-                onChangeText={setEmail}
+                onChangeText={(text) => {
+                  setEmail(text);
+                  if (text && errors.email) {
+                    setErrors(prev => ({ ...prev, email: '' }));
+                  }
+                }}
                 keyboardType="email-address"
                 autoCapitalize="none"
               />
             </View>
+            {errors.email ? <Text style={styles.errorText}>{errors.email}</Text> : null}
 
-            {/* Password input */}
             <View style={styles.inputContainer}>
               <View style={styles.label}>
                 <Text style={styles.labelText}>#</Text>
               </View>
               <TextInput
-                style={styles.input}
+                style={[styles.input, errors.password && styles.inputError]}
                 placeholder="Password"
+                placeholderTextColor={placeholderColor}
                 value={password}
-                onChangeText={setPassword}
+                onChangeText={evaluatePasswordStrength}
                 secureTextEntry
               />
             </View>
+            {errors.password ? <Text style={styles.errorText}>{errors.password}</Text> : null}
 
-            {/* Signup button */}
-            <TouchableOpacity style={styles.button} onPress={handleSignUp}>
-              <Text style={styles.buttonText}>Sign Up</Text>
+            {passwordStrength ? (
+              <Text style={[styles.indicator, { color: getStrengthColor() }]}>
+                Password is {passwordStrength}
+              </Text>
+            ) : null}
+            <View style={styles.inputContainer}>
+              <View style={styles.label}>
+                <Text style={styles.labelText}>#</Text>
+              </View>
+              <TextInput
+                style={[styles.input, errors.confirmPassword && styles.inputError]}
+                placeholder="Confirm Password"
+                placeholderTextColor={placeholderColor}
+                value={confirmPassword}
+                onChangeText={(text) => {
+                  setConfirmPassword(text);
+                  if (text && errors.confirmPassword) {
+                    setErrors(prev => ({ ...prev, confirmPassword: '' }));
+                  }
+                }}
+                secureTextEntry
+              />
+            </View>
+            {errors.confirmPassword ? <Text style={styles.errorText}>{errors.confirmPassword}</Text> : null}
+            <TouchableOpacity 
+              style={[
+                styles.button, 
+                !isFormComplete && styles.buttonDisabled
+              ]} 
+              onPress={handleSignUp}
+              disabled={!isFormComplete}
+            >
+              <Text style={[
+                styles.buttonText,
+                !isFormComplete && styles.buttonTextDisabled
+              ]}>
+                Sign Up
+              </Text>
             </TouchableOpacity>
           </View>
 
-
-          <View style = {styles.footerContainer}>
-            <Text style={styles.footerText}>
-              Already have an account? {''}
-            </Text>
-            <TouchableOpacity style = {styles.signupButton} onPress = {handleLogin}>
-              <Text style={styles.link}>
-                Login
-              </Text>
-            </TouchableOpacity>  
-          </View>  
+          <Text style={styles.footerText}>
+            Already have an account?{' '}
+            <Link href="/login" style={styles.link}>Login</Link>
+          </Text>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
   );
 }
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f0f0f0',
-  },
-  footerContainer: {
-    flexDirection: 'row',
-    marginTop: 20,
-    fontSize: 14,
   },
   scrollContainer: {
     flexGrow: 1,
@@ -142,7 +236,7 @@ const styles = StyleSheet.create({
   },
   label: {
     backgroundColor: '#ffc629',
-    height: 50,
+    height: 57,
     width: 50,
     borderTopLeftRadius: 10,
     borderBottomLeftRadius: 10,
@@ -165,6 +259,10 @@ const styles = StyleSheet.create({
     padding: 15,
     fontSize: 16,
   },
+  inputError: {
+    borderColor: 'red',
+    borderWidth: 1,
+  },
   button: {
     marginTop: 10,
     backgroundColor: '#FFFFFF',
@@ -174,12 +272,10 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#333333',
   },
-
-  loginButton: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 5,
+  buttonDisabled: {
+    backgroundColor: '#f0f0f0',
+    borderColor: '#cccccc',
   },
-
   buttonText: {
     fontSize: 16,
     fontWeight: '600',
@@ -187,16 +283,29 @@ const styles = StyleSheet.create({
     color: '#333333',
     textAlign: 'center',
   },
+  buttonTextDisabled: {
+    color: '#cccccc',
+  },
   footerText: {
     marginTop: 20,
     fontSize: 14,
     color: '#333333',
-    
   },
   link: {
-    marginTop: 20,
-    fontSize: 14,
     color: '#ffc629',
     fontWeight: '600',
+  },
+  indicator: {
+    alignSelf: 'flex-start',
+    marginLeft: 10,
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  errorText: {
+    alignSelf: 'flex-start',
+    color: 'red',
+    fontSize: 12,
+    marginTop: -10,
+    marginLeft: 10,
   },
 });
