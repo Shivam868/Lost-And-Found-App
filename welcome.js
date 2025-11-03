@@ -1,32 +1,28 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 
-export default function SignUpScreen() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+export default function WelcomeScreen() {
 
   const navigation = useNavigation();
 
-  const handleSignUp = () => {
-    console.log('Email:', email);
-    console.log('Password:', password);
-  };
+   const handleLogin = () => {
+   navigation.navigate('LoginScreen')
+   };
 
-  // Turn 'Already have an account' to login screen navigation
-  const handleLogin = () => {
-    navigation.navigate('LoginScreen')
-  };
+   const handleSignUp = () => {
+   navigation.navigate('SignUpScreen')
+   };
+
 
   return (
     <KeyboardAvoidingView 
@@ -35,56 +31,24 @@ export default function SignUpScreen() {
     >
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.wrapper}>
-          <Text style={styles.title}>Sign Up</Text>
+          <Text style={styles.title}>Welcome</Text>
+
+         
+        <TouchableOpacity style={styles.button} onPress={handleSignUp}>
+            <Text style={styles.buttonText}>Sign Up</Text>
+        </TouchableOpacity>
+         
           
-          {/* Signup form */}
-          <View style={styles.form}>
-            {/* Email input */}
-            <View style={styles.inputContainer}>
-              <View style={styles.label}>
-                <Text style={styles.labelText}>@</Text>
-              </View>
-              <TextInput
-                style={styles.input}
-                placeholder="Email"
-                value={email}
-                onChangeText={setEmail}
-                keyboardType="email-address"
-                autoCapitalize="none"
-              />
-            </View>
-
-            {/* Password input */}
-            <View style={styles.inputContainer}>
-              <View style={styles.label}>
-                <Text style={styles.labelText}>#</Text>
-              </View>
-              <TextInput
-                style={styles.input}
-                placeholder="Password"
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry
-              />
-            </View>
-
-            {/* Signup button */}
-            <TouchableOpacity style={styles.button} onPress={handleSignUp}>
-              <Text style={styles.buttonText}>Sign Up</Text>
-            </TouchableOpacity>
-          </View>
-
-          <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-            <Text style={styles.footerText}>
-              Already have an account?{' '}
-            </Text>
-          </TouchableOpacity>  
+        
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
+            <Text style={styles.buttonText}>Login</Text>
+        </TouchableOpacity>
+        
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -163,12 +127,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#333333',
   },
-
-  loginButton: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 5,
-  },
-
   buttonText: {
     fontSize: 16,
     fontWeight: '600',
@@ -181,8 +139,5 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#333333',
   },
-  link: {
-    color: '#ffc629',
-    fontWeight: '600',
-  },
+
 });

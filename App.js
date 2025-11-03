@@ -11,6 +11,7 @@ import Login from './login';
 import SignUpScreen from './signup';
 import BottomTabBar from './BottomTabBar';
 import LoginScreen from './login';
+import WelcomeScreen from './welcome';
 
 const Stack = createNativeStackNavigator();
 
@@ -29,16 +30,21 @@ export default function App () {
         {/* Set Home as the initial screen and hide its header */}
         {/* Register the HomeSignIn screen */}
 
+        <Stack.Screen 
+          name="WelcomeScreen"
+          component={WelcomeScreen}
+          options={{ headerShown: false, gestureEnabled: false}} // Remove top left back button and disable left swipe to previous page function
+        />
 
         <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
-          options={{ headerShown: false, gestureEnabled: false}} // Remove back button from top left bar (Ex: <Home (shown on top left bar))
+          options={{ headerShown: false, gestureEnabled: false}} // Remove top left back button and disable left swipe to previous page function
         />
         <Stack.Screen
           name="SignUpScreen"
           component={SignUpScreen}
-          options={{ headerShown: false, gestureEnabled: false}} // Remove back button from top left bar (Ex: <Home (shown on top left bar))
+          options={{ headerShown: false, gestureEnabled: false}} // Remove top left back button and disable left swipe to previous page function
         />
 
         <Stack.Screen
