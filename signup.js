@@ -74,11 +74,17 @@ export default function SignUpScreen() {
             </TouchableOpacity>
           </View>
 
-          <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+
+          <View style = {styles.footerContainer}>
             <Text style={styles.footerText}>
-              Already have an account?{' '}
+              Already have an account? {''}
             </Text>
-          </TouchableOpacity>  
+            <TouchableOpacity style = {styles.signupButton} onPress = {handleLogin}>
+              <Text style={styles.link}>
+                Login
+              </Text>
+            </TouchableOpacity>  
+          </View>  
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -90,6 +96,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f0f0f0',
+  },
+  footerContainer: {
+    flexDirection: 'row',
+    marginTop: 20,
+    fontSize: 14,
   },
   scrollContainer: {
     flexGrow: 1,
@@ -180,8 +191,11 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontSize: 14,
     color: '#333333',
+    
   },
   link: {
+    marginTop: 20,
+    fontSize: 14,
     color: '#ffc629',
     fontWeight: '600',
   },
