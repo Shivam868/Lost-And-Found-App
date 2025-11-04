@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 const TI30_Post_Front = require('./assets/postTest/TI30_Front.jpg')
 const TI30_Post_Back = require('./assets/postTest/TI30_Back.jpg')
 
-const postPage = () => {
+const postDetails = () => {
 
     const navigation = useNavigation();
 

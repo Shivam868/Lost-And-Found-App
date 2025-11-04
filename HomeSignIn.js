@@ -21,8 +21,8 @@ const HomeSignIn = () => {
   };
 
 
-  const handlePostPage = () => {
-    navigation.navigate('postPage')
+  const handlePostDetails = () => {
+    navigation.navigate('postDetails')
   }
 
 
@@ -257,7 +257,7 @@ const HomeSignIn = () => {
         <ScrollView horizontal = {true} style = {styles.horizontalScrollview}>
         <View style = {styles.itemGrid}>
           <View style = {styles.itemCard}>
-            <TouchableOpacity style = {styles.imageButton} onPress = {handlePostPage} >
+            <TouchableOpacity style = {styles.imageButton} onPress = {handlePostDetails} >
             <Image
                 source={TI30_Post_Front}
                 style={styles.itemImagePlaceholder} 
