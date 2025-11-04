@@ -9,6 +9,8 @@ const calcImage = require('./assets/postTest/calculator.jpg')
 const controllerImage = require('./assets/postTest/controller.jpg')
 const iPhoneImage2 = require('./assets/postTest/iPhone_back.jpg')
 const iPhoneImage1 = require('./assets/postTest/iPhone.jpg')
+const TI30_Post_Front = require('./assets/postTest/TI30_Front.jpg')
+const TI30_Post_Back = require('./assets/postTest/TI30_Back.jpg')
 
 
 const HomeSignIn = () => {
@@ -17,6 +19,12 @@ const HomeSignIn = () => {
 
   const handleLearnMore = () => {
   };
+
+
+  const handlePostPage = () => {
+    navigation.navigate('postPage')
+  }
+
 
   const SearchBar = ({ onSearch }) => {
     const [searchText, setSearchText] = useState('');
@@ -41,41 +49,161 @@ const HomeSignIn = () => {
   const pinPoints = [
     {
       id: 1,
-      title: 'Airpods Pro',
-      description: 'Found in math building on red chair',
+      title: 'Joe Mack Wilson Student Center',
+      description: 'Location: 2nd Floor Main Lobby',
       coordinate: {
-        latitude: 33.93998,
-        longitude: -84.52046,
+        latitude: 33.94077,
+        longitude: -84.52051,
       },
     },
 
     {
       id: 2,
-      title: 'Green Composition Notebook',
-      description: 'Found in atrium building lobby',
+      title: 'Carmichael Student Center',
+      description: 'Location: Room 274',
       coordinate: {
-        latitude: 33.93763,
-        longitude: -84.52025,
+        latitude: 34.03832,
+        longitude: -84.58299,
       },
     },
 
     {
       id: 3,
-      title: 'Dell Laptop',
-      description: 'Found in eating area outside Stingers cafe',
+      title: 'Burruss Building',
+      description: 'Location: Room 255',
       coordinate: {
-        latitude: 33.93731,
-        longitude: -84.52200,
+        latitude: 34.03939,
+        longitude: -84.58192,
       },
     },
 
     {
       id: 4,
-      title: 'Black Owala Bottle',
-      description: 'Found in table outside of crawford lab building',
+      title: 'Kennesaw Hall',
+      description: 'Location: Room 2005',
       coordinate: {
-        latitude: 33.93953,
-        longitude: -84.52160,
+        latitude: 34.03863,
+        longitude: -84.58070,
+      },
+    },
+
+    {
+      id: 5,
+      title: 'Student Recreation & Activities Center',
+      description: 'Location: Front Desk',
+      coordinate: {
+        latitude: 34.03698,
+        longitude: -84.58231,
+      },
+    },
+
+    {
+      id: 6,
+      title: 'Math & Statistics Building',
+      description: 'Location: Room 507',
+      coordinate: {
+        latitude: 34.03772,
+        longitude: -84.58393,
+      },
+    },
+
+    {
+      id: 7,
+      title: 'Social Science Building',
+      description: 'Location: Room 4057',
+      coordinate: {
+        latitude: 34.03871,
+        longitude: -84.58530,
+      },
+    },
+
+    {
+      id: 8,
+      title: 'Convocation Center',
+      description: 'Location: Room 3003',
+      coordinate: {
+        latitude: 34.03688,
+        longitude: -84.58041,
+      },
+    },
+
+    {
+      id: 9,
+      title: 'Horace W. Sturgis Library',
+      description: 'Location: Circulation Desk',
+      coordinate: {
+        latitude: 34.03828,
+        longitude: -84.58379,
+      },
+    },
+
+    {
+      id: 10,
+      title: 'University College',
+      description: 'Location: Room UC102A',
+      coordinate: {
+        latitude: 34.03882,
+        longitude: -84.58398,
+      },
+    },
+
+    {
+      id: 11,
+      title: 'Commons Building',
+      description: 'Location: Lobby Office',
+      coordinate: {
+        latitude: 34.03999,
+        longitude: -84.58213,
+      },
+    },
+
+    {
+      id: 12,
+      title: 'Music Building',
+      description: 'Location: Room MU111',
+      coordinate: {
+        latitude: 34.04019,
+        longitude: -84.58287,
+      },
+    },
+
+    {
+      id: 13,
+      title: 'Wellness Center',
+      description: 'Location: Room UC102A',
+      coordinate: {
+        latitude: 34.03752,
+        longitude: -84.58201,
+      },
+    },
+
+    {
+      id: 14,
+      title: 'Visual Arts Building',
+      description: 'Location: Room VA202',
+      coordinate: {
+        latitude: 34.04006,
+        longitude: -84.58517,
+      },
+    },
+
+    {
+      id: 15,
+      title: 'Prillaman Hall',
+      description: 'Location: Room 3015',
+      coordinate: {
+        latitude: 34.04042,
+        longitude: -84.58226,
+      },
+    },
+
+    {
+      id: 16,
+      title: 'English Building',
+      description: 'Location: Room 155',
+      coordinate: {
+        latitude: 34.03931,
+        longitude: -84.58398,
       },
     },
 
@@ -129,11 +257,13 @@ const HomeSignIn = () => {
         <ScrollView horizontal = {true} style = {styles.horizontalScrollview}>
         <View style = {styles.itemGrid}>
           <View style = {styles.itemCard}>
-            <View style = {styles.itemImagePlaceholder}>
-              <Text style = {styles.placeholderText}>
-                Item{'\n'}Image
-              </Text>
-            </View>
+            <TouchableOpacity style = {styles.imageButton} onPress = {handlePostPage} >
+            <Image
+                source={TI30_Post_Front}
+                style={styles.itemImagePlaceholder} 
+                resizeMode="cover"
+              />
+            </TouchableOpacity>  
           </View>
 
         
@@ -474,6 +604,15 @@ const HomeSignIn = () => {
       borderWidth: 1,
       borderColor: '#cccccc',
       marginHorizontal: 5,
+    },
+
+    imageButton: {
+      width: 160,
+      height: 175,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#e0e0e0',
+      borderRadius: 8,
     },
 
 

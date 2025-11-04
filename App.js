@@ -12,6 +12,7 @@ import SignUpScreen from './signup';
 import BottomTabBar from './BottomTabBar';
 import LoginScreen from './login';
 import WelcomeScreen from './welcome';
+import postPage from './postPage'
 
 const Stack = createNativeStackNavigator();
 
@@ -51,6 +52,12 @@ export default function App () {
           name="BottomTabBar"
           component={BottomTabBar}
           options={{ headerShown: false, gestureEnabled: false }}
+        />
+
+        <Stack.Screen
+          name="postPage"
+          component={postPage}
+          options={{title: 'Lost Item', headerBackTitle: 'Back',}}
         />
 
       </Stack.Navigator>
