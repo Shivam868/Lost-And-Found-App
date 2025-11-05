@@ -1,8 +1,18 @@
 import { useNavigation } from '@react-navigation/native';
 import { Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-export default function HomeScreen() {
+const KSU_Logo = require('./assets/ksuLOGO1.jpg')
+
+export default function WelcomeScreen() {
   const navigation = useNavigation();
+
+  const handleLogin = () => {
+   navigation.navigate('LoginScreen')
+   };
+
+   const handleSignUp = () => {
+   navigation.navigate('SignUpScreen')
+   };
 
   return (
     <KeyboardAvoidingView 
@@ -13,17 +23,17 @@ export default function HomeScreen() {
         <View style={styles.wrapper}>
           <Text style={styles.title}>Welcome</Text>
 
-          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('SIGNUPreactNav')}>
+          <TouchableOpacity style={styles.button} onPress={handleSignUp}>
             <Text style={styles.buttonText}>Sign Up</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('LOGINreactNav')}>
+          <TouchableOpacity style={styles.button} onPress={handleLogin}>
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.imageContainer}>
-          <Image source={require('../assets/images/ksuLOGO1.jpg')} style={styles.image} />
+          <Image source={KSU_Logo} style={styles.image} />
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

@@ -35,8 +35,13 @@ export default function LoginScreen() {
       console.log('Email:', email);
       console.log('Password:', password);
       Alert.alert('Success', 'Logged in successfully!');
+      navigation.navigate('BottomTabBar')
     }
   };
+
+  const handleSignUp = () => {
+    navigation.navigate('SignUpScreen')
+  }
 
   const isFormComplete = email && password;
 
@@ -87,7 +92,7 @@ export default function LoginScreen() {
 
           <Text style={styles.footerText}>
             Don't have an account?{' '}
-            <Text style={styles.link} onPress={() => navigation.navigate('SIGNUPreactNav')}>Sign Up</Text>
+            <Text style={styles.link} onPress={handleSignUp}>Sign Up</Text>
           </Text>
         </View>
       </ScrollView>

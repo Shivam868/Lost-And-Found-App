@@ -69,6 +69,10 @@ export default function SignUpScreen() {
 
   const isFormComplete = email && password && confirmPassword && password === confirmPassword;
 
+  const handleLogin = () => {
+    navigation.navigate('LoginScreen')
+  }
+
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -154,7 +158,7 @@ export default function SignUpScreen() {
           </View>
           <Text style={styles.footerText}>
             Already have an account?{' '}
-            <Text style={styles.link} onPress={() => navigation.navigate('LOGINreactNav')}>Login</Text>
+            <Text style={styles.link} onPress={handleLogin}>Login</Text>
           </Text>
         </View>
       </ScrollView>

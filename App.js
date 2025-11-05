@@ -2,18 +2,14 @@ import React from 'react';
 import { StatusBar, Appearance, useColorScheme, View, StyleSheet, ScrollView, } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Home from './Home';
-import HomeSignIn from './HomeSignIn'
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { Ionicons } from "@expo/vector-icons";
-import Search from './Search';
-import Login from './login';
-import SignUpScreen from './signup';
 import BottomTabBar from './BottomTabBar';
-import LoginScreen from './login';
-import WelcomeScreen from './welcome';
+import LoginScreen from './LOGINreactNav';
+import SignUpScreen from './SIGNUPreactNav';
+import WelcomeScreen from './WELCOMEreactNav';
 import postDetails from './postDetails';
-import Post from './post';
+
 
 const Stack = createNativeStackNavigator();
 
