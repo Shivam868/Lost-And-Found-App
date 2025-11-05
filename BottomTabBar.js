@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from './Home';
 import HomeSignIn from './HomeSignIn';
 import Search from './Search';
+import Post from './post';
 
 import { Ionicons } from "@expo/vector-icons";
 
@@ -20,6 +21,7 @@ function BottomTabBar() {
           let iconName;
           if (route.name === "Home") iconName = "home";
           else if (route.name === "SearchPage") iconName = "search";
+          else if (route.name === "Post") iconName = "add"
           return <Ionicons name={iconName} size={size} color={color} />;
         },
         tabBarActiveTintColor: "#007AFF",
@@ -28,6 +30,7 @@ function BottomTabBar() {
     >
       <Tab.Screen name="Home" component={HomeSignIn} options={{ headerShown: false }} />
       <Tab.Screen name="SearchPage" component={Search} options={{ headerShown: false }} />
+      <Tab.Screen name="Post" component={Post} options={{ headerShown: false }} />
     </Tab.Navigator>
   );
 }

@@ -284,12 +284,6 @@ const styles = StyleSheet.create({
         color: 'black',
         textAlign: 'left',
     },
-
-
-
-
-
-
 });
 
-export default postPage;
+export default postDetails;
