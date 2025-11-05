@@ -12,7 +12,8 @@ import SignUpScreen from './signup';
 import BottomTabBar from './BottomTabBar';
 import LoginScreen from './login';
 import WelcomeScreen from './welcome';
-import postDetails from './postDetails'
+import postDetails from './postDetails';
+import Post from './post';
 
 const Stack = createNativeStackNavigator();
 

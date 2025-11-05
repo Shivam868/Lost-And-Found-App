@@ -12,6 +12,7 @@ import {
   View
 } from 'react-native';
 
+
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,12 +21,14 @@ export default function LoginScreen() {
     password: ''
   });
 
+
   const validateForm = () => {
     const newErrors = {
       email: '',
       password: ''
     };
     let isValid = true;
+
 
     if (!email) {
       newErrors.email = 'Email is required';
@@ -35,14 +38,17 @@ export default function LoginScreen() {
       isValid = false;
     }
 
+
     if (!password) {
       newErrors.password = 'Password is required';
       isValid = false;
     }
 
+
     setErrors(newErrors);
     return isValid;
   };
+
 
   const handleLogin = () => { 
     if (validateForm()) {
@@ -52,6 +58,7 @@ export default function LoginScreen() {
     }
   };
   const isFormComplete = email && password;
+
 
   return (
     <KeyboardAvoidingView 
@@ -83,6 +90,7 @@ export default function LoginScreen() {
             </View>
             {errors.email ? <Text style={styles.errorText}>{errors.email}</Text> : null}
 
+
             <View style={styles.inputContainer}>
               <View style={styles.label}>
                 <Text style={styles.labelText}>#</Text> 
@@ -102,6 +110,7 @@ export default function LoginScreen() {
               />
             </View>
             {errors.password ? <Text style={styles.errorText}>{errors.password}</Text> : null}
+
 
             <TouchableOpacity 
               style={[
@@ -129,6 +138,7 @@ export default function LoginScreen() {
     </KeyboardAvoidingView>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
