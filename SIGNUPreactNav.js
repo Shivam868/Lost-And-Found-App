@@ -111,7 +111,7 @@ export default function SignUpScreen() {
                 placeholderTextColor={placeholderColor}
                 value={password}
                 onChangeText={evaluatePasswordStrength}
-                secureTextEntry
+                //secureTextEntry
               />
             </View>
             {errors.password ? <Text style={styles.errorText}>{errors.password}</Text> : null}
@@ -136,7 +136,7 @@ export default function SignUpScreen() {
                     setErrors(prev => ({ ...prev, confirmPassword: '' }));
                   }
                 }}
-                secureTextEntry
+                //secureTextEntry
               />
             </View>
             {errors.confirmPassword ? <Text style={styles.errorText}>{errors.confirmPassword}</Text> : null}
