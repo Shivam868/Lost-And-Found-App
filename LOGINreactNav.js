@@ -22,7 +22,7 @@ export default function LoginScreen() {
       newErrors.email = 'Please use a valid KSU email';
       isValid = false;
     }
-    if (!password) {
+    if (!password) {s
       newErrors.password = 'Password is required';
       isValid = false;
     }

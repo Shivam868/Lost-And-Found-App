@@ -20,7 +20,7 @@ function BottomTabBar() {
         tabBarIcon: ({ color, size }) => {
           let iconName;
           if (route.name === "Home") iconName = "home";
-          else if (route.name === "SearchPage") iconName = "search";
+          else if (route.name === "Search") iconName = "search";
           else if (route.name === "Post") iconName = "add"
           return <Ionicons name={iconName} size={size} color={color} />;
         },
@@ -29,7 +29,7 @@ function BottomTabBar() {
       })}
     >
       <Tab.Screen name="Home" component={HomeSignIn} options={{ headerShown: false }} />
-      <Tab.Screen name="SearchPage" component={Search} options={{ headerShown: false }} />
+      <Tab.Screen name="Search" component={Search} options={{ headerShown: false }} />
       <Tab.Screen name="Post" component={Post} options={{ headerShown: false }} />
     </Tab.Navigator>
   );
