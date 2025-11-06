@@ -34,7 +34,7 @@ export default function LoginScreen() {
     if (validateForm()) {
       console.log('Email:', email);
       console.log('Password:', password);
-      Alert.alert('Success', 'Logged in successfully!');
+      Alert.alert('Success', 'Hooty Hoo! Logged in successfully!');
       navigation.navigate('BottomTabBar')
     }
   };
